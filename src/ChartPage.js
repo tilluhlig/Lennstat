@@ -1,44 +1,45 @@
-const { Button, Canvas, CheckBox, Composite, Page, device, Tab, TextView, Stack } = require('tabris');
+import { Button, Canvas, CheckBox, Composite, Page, device, Tab, TextView, Stack } from 'tabris';
 const Chart = require('chart.js');
+import BasicPage from './BasicPage';
 
-const DRAW_CHART_BUTTON_TEXT = 'Draw graph';
-const ANIMATE_CHECKBOX_TEXT = 'Animate';
+export default class ChartPage extends BasicPage {
 
-module.exports = class ChartPage extends Tab {
+  constructor(type, url, data, title, desc) {
+    super(url, data);
+    this.title = title;
+    this.desc = desc;
+    this.type = type;
+    this.items = null;
+    this.chartElem = null;
 
-  constructor(properties) {
-    super(Object.assign({ autoDispose: false }, properties));
     this._createUI();
     this._applyLayout();
-    this.title = this.chart.title;
-  }
-
-  set chart(chart) {
-    this._chart = chart;
-  }
-
-  get chart() {
-    return this._chart;
+    this.masterElem = this.find(Canvas).first();
+    this.onAppear.addListener(() => this._update());
   }
 
   _createUI() {
-    this.append(
+    if (this.chartElem !== null) {
+      this.chartElem.dispose();
+    }
+
+    this.chartElem =
       new Stack({ spacing: 12, padding: 12, layoutData: "stretch" }).append(
-        new TextView({ layoutData: "center", text: this.chart.desc }),
+        new TextView({ layoutData: "center", text: this.desc }),
         new Composite()
           .append(new Canvas())
           .on({ resize: (event) => this._layoutCanvas(event) }),
         new Button({ layoutData: "center", id: 'drawChartButton', text: "Aktualisieren" })
-          .on('select', () => this.drawChart())
-      )
-    );
+          .on('select', () => this._update())
+      );
+    this.append(this.chartElem);
   }
 
   drawChart() {
     let ctx = this._createCanvasContext();
     // workaround for scaling to native pixels by chart.js
     ctx.scale(1 / window.devicePixelRatio, 1 / window.devicePixelRatio);
-    new Chart(ctx)[this.chart.type](this.chart.data, {
+    new Chart(ctx)[this.type](this.items, {
       animation: false,
       showScale: true,
       showTooltips: false,
