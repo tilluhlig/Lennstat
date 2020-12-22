@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="tilluhlig.lennstat" version="0.1.0">
-  <name>test</name>
+<widget id="tilluhlig.lennstat" version="1.0.0">
+  <name>lennstat</name>
   <description>
     LennStat
   </description>
