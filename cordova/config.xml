@@ -8,4 +8,15 @@
     Till Uhlig
   </author>
   <preference name="EnableDeveloperConsole" value="$IS_DEBUG" />
+  <platform name="ios">
+      <preference name="WKWebViewOnly" value="true" />
+  
+      <feature name="CDVWKWebViewEngine">
+          <param name="ios-package" value="CDVWKWebViewEngine" />
+      </feature>
+  
+      <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+  
+      <plugin name="cordova-plugin-wkwebview-engine" spec="~1.2.1" />
+  </platform>
 </widget>
