@@ -71,6 +71,7 @@ export default class BasicPage extends Tab {
 
         // Run async remote request with fetch
         let fullUrl = this.getLicenseServer() + "/" + this.url;
+        //console.log(fullUrl);
         fetch(fullUrl)
             .then((response) => {
                 // Check to see if the response status code is 200-299
