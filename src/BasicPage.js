@@ -1,5 +1,6 @@
 
 import { Button, Canvas, CheckBox, Composite, Page, device, Tab, TextView, Stack, ActivityIndicator, contentView } from 'tabris';
+import 'whatwg-fetch';
 
 export default class BasicPage extends Tab {
 
@@ -73,10 +74,14 @@ export default class BasicPage extends Tab {
 
         // Run async remote request with fetch
         let fullUrl = this.getLicenseServer() + "/" + this.url;
-        const response = await fetch(fullUrl);
-        if (!response.ok) {
-            console.error(`HTTP ${response.status} - ${response.statusText}`);
-            this.showErrorView(error);
+        const response = await window.fetch(fullUrl).catch(function(ex) {
+             return ex;
+          });
+        //console.log(response);
+
+        if (response == undefined || !response.ok) {
+            //console.error(response.statusText);
+            this.showErrorView("Fehler");
             if (this.masterElem !== null) {
                 this.masterElem.visible = false;
             }
