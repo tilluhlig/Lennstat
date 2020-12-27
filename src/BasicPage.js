@@ -13,6 +13,7 @@ export default class BasicPage extends Tab {
         this.masterElem = null;
         this.updateDataCallback = null;
         this.LICENSE_KEY = 'licenseServer';
+        this.LICENSE = 'licenseKey';
     }
 
     showErrorView(text) {
@@ -53,12 +54,21 @@ export default class BasicPage extends Tab {
     }
 
     getLicenseServer() {
-        let server = localStorage.getItem(this.LICENSE_KEY) || 'http://server.xyz';
+        let server = localStorage.getItem(this.LICENSE_KEY) || 'https://server.xyz';
         return server;
     }
 
     setLicenseServer(text) {
         localStorage.setItem(this.LICENSE_KEY, text);
+    }
+
+    getLicenseKey() {
+        let key = localStorage.getItem(this.LICENSE) || 'licenseHash';
+        return key;
+    }
+
+    setLicenseKey(text) {
+        localStorage.setItem(this.LICENSE, text);
     }
 
     async updateData() {
@@ -73,7 +83,7 @@ export default class BasicPage extends Tab {
         this.data = null;
 
         // Run async remote request with fetch
-        let fullUrl = this.getLicenseServer() + "/" + this.url;
+        let fullUrl = this.getLicenseServer() + "/" + this.url+"&key="+this.getLicenseKey();
         const response = await window.fetch(fullUrl).catch(function(ex) {
              return ex;
           });
@@ -85,13 +95,14 @@ export default class BasicPage extends Tab {
             if (this.masterElem !== null) {
                 this.masterElem.visible = false;
             }
+            this.hideProgressIndicator();
         } else {
+            this.hideProgressIndicator();
             this.data = await response.json();
             this.data=this.data.content;
             if (this.updateDataCallback !== null) {
                 this.updateDataCallback();
             }
         }
-        this.hideProgressIndicator();
     }
 };
