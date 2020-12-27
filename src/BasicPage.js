@@ -1,4 +1,4 @@
-'use strict';
+
 import { Button, Canvas, CheckBox, Composite, Page, device, Tab, TextView, Stack, ActivityIndicator, contentView } from 'tabris';
 
 export default class BasicPage extends Tab {
@@ -16,7 +16,7 @@ export default class BasicPage extends Tab {
 
     showErrorView(text) {
         this.errorView = new TextView({
-            width:250,
+            width: 250,
             centerY: true,
             centerX: true,
             text,
@@ -60,7 +60,7 @@ export default class BasicPage extends Tab {
         localStorage.setItem(this.LICENSE_KEY, text);
     }
 
-    updateData() {
+    async updateData() {
         // Create loading indicator
         this.showProgressIndicator();
         this.hideErrorView();
@@ -73,55 +73,20 @@ export default class BasicPage extends Tab {
 
         // Run async remote request with fetch
         let fullUrl = this.getLicenseServer() + "/" + this.url;
-        //console.log(fullUrl);
-
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === xhr.DONE) {
-                //console.log("done");
-
-                this.data = JSON.parse(xhr.responseText).content
-                if (this.updateDataCallback !== null) {
-                    this.updateDataCallback();
-                }
-                this.hideProgressIndicator();
-            }
-        };
-
-        xhr.onabort = (err) => {
-            //console.log("error");
-            this.showErrorView('error!!!');
-            this.data = null;
-
+        const response = await fetch(fullUrl);
+        if (!response.ok) {
+            console.error(`HTTP ${response.status} - ${response.statusText}`);
+            this.showErrorView(error);
             if (this.masterElem !== null) {
                 this.masterElem.visible = false;
             }
-            this.hideProgressIndicator();
-        };
-
-        xhr.onerror = (err) => {
-            //console.log("error");
-            this.showErrorView('failure!!!');
-            this.data = null;
-
-            if (this.masterElem !== null) {
-                this.masterElem.visible = false;
+        } else {
+            this.data = await response.json();
+            this.data=this.data.content;
+            if (this.updateDataCallback !== null) {
+                this.updateDataCallback();
             }
-            this.hideProgressIndicator();
-        };
-
-        xhr.ontimeout = (err) => {
-            //console.log("timeout");
-            this.showErrorView('timeout!!!');
-            this.data = null;
-
-            if (this.masterElem !== null) {
-                this.masterElem.visible = false;
-            }
-            this.hideProgressIndicator();
-        };
-
-        xhr.open('GET', fullUrl);
-        xhr.send();
+        }
+        this.hideProgressIndicator();
     }
 };
