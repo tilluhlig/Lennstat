@@ -1,4 +1,6 @@
 import { Button, Canvas, CheckBox, Composite, Page, device, Tab, TextView, Stack, ActivityIndicator, contentView } from 'tabris';
+Promise = require("promise");
+require("whatwg-fetch");
 
 export default class BasicPage extends Tab {
 
@@ -72,43 +74,37 @@ export default class BasicPage extends Tab {
         // Run async remote request with fetch
         let fullUrl = this.getLicenseServer() + "/" + this.url;
         //console.log(fullUrl);
+        fetch(fullUrl)
+            .then((response) => {
+                // Check to see if the response status code is 200-299
+                if (!response.ok) {
+                    throw response.statusText;
+                }
+                return response.json();
+            })
+            .then((json) => {
+                // Check that the response contains a success status
+                if (json.status !== 'success') {
+                    throw new Error(json.status || 'Response was not successful');
+                }
 
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === xhr.DONE) {
-                //console.log("done");
-
-                this.data = JSON.parse(xhr.responseText).content
+                this.data = json.content;
                 if (this.updateDataCallback !== null) {
                     this.updateDataCallback();
                 }
+            }).catch((err) => {
+                // On error, show what went wrong and reload button
+                console.log(err);
+                this.showErrorView('Failure: ' + (err || 'Error loading data'));
+                this.data = null;
+
+                if (this.masterElem !== null) {
+                    this.masterElem.visible = false;
+                }
+            }).then(() => {
+                // This block always executes, regardless of success or failure
+                // Dispose of the activity loader via direct reference
                 this.hideProgressIndicator();
-            }
-        };
-
-        xhr.onerror = (err) => {
-            //console.log("error");
-            this.showErrorView('Failure: ' + (err || 'Error loading data'));
-            this.data = null;
-
-            if (this.masterElem !== null) {
-                this.masterElem.visible = false;
-            }
-            this.hideProgressIndicator();
-        };
-
-        xhr.ontimeout = (err) => {
-            //console.log("timeout");
-            this.showErrorView('Timeout');
-            this.data = null;
-
-            if (this.masterElem !== null) {
-                this.masterElem.visible = false;
-            }
-            this.hideProgressIndicator();
-        };
-
-        xhr.open('GET', fullUrl);
-        xhr.send();
+            });
     }
 };
