@@ -8,6 +8,8 @@
     Till Uhlig
   </author>
   <preference name="EnableDeveloperConsole" value="$IS_DEBUG" />
+  <preference name="UseStrictSSL" value="false" />
+   
 
   <platform name="ios">
       <preference name="WKWebViewOnly" value="true" />
