@@ -25,11 +25,11 @@ export default class ChartPage extends BasicPage {
 
     this.chartElem =
       new Stack({ spacing: 12, padding: 12, layoutData: "stretch" }).append(
-        new TextView({ layoutData: "center", text: this.desc }),
+        new TextView({centerX: 'auto', text: this.desc }),
         new Composite()
           .append(new Canvas())
           .on({ resize: (event) => this._layoutCanvas(event) }),
-        new Button({ layoutData: "center", id: 'drawChartButton', text: "Aktualisieren" })
+        new Button({centerX: 'auto', id: 'drawChartButton', text: "Aktualisieren" })
           .on('select', () => this._update())
       );
     this.append(this.chartElem);
@@ -58,8 +58,7 @@ export default class ChartPage extends BasicPage {
 
   _applyLayout() {
     this.apply({
-      '#drawChartButton': { left: 16, top: 16 },
-      'Composite': { left: 16, top: '#drawChartButton 16', right: 16, bottom: 16 },
+      'Composite': { left: 16, top: 16, right: 16, bottom: 16 },
       'Canvas': { left: 0, centerY: 0 }
     });
   }

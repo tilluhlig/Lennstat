@@ -19,13 +19,13 @@ export default class VersionPage extends BasicPage {
     _createUI() {
         this.append(
             new Stack({ spacing: 12, padding: 12, layoutData: "stretch" }).append(
-                new TextView({ layoutData: "center", text: this.desc }),
+                new TextView({ centerX: 'auto', text: this.desc }),
                 new ListView({ layoutData: "stretch", items: this.items }).append(
                     new Cell({ padding: 8, height: 52 }).append(
                         <TextView centerY bind-text='item' font='24px' />
                     )
                 ),
-                new Button({ layoutData: "center", id: 'drawChartButton', text: "Aktualisieren" })
+                new Button({ centerX: 'auto', id: 'drawChartButton', text: "Aktualisieren" })
                     .on('select', () => this._update())
             )
         );

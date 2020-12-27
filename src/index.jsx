@@ -6,7 +6,7 @@ const VersionPage = require('./VersionPage').default;
 const SettingsPage = require('./SettingsPage').default;
 
 contentView.append(
-  <TabFolder paging stretch selectionIndex={0} tabBarLocation='bottom' />
+  <TabFolder paging stretch tabBarLocation='bottom' />
 );
 let tabFolder = contentView.find(TabFolder).first();
 

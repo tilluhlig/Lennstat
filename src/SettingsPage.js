@@ -16,8 +16,8 @@ export default class SettingsPage extends BasicPage {
     _createUI() {
         this.append(
             new Stack({ spacing: 12, padding: 12, layoutData: "stretch" }).append(
-                new TextView({ layoutData: "center", text: "Lizenzserver", top:'prev() 48' }),
-                new TextInput({ layoutData: "center", text: this.getLicenseServer(), left:"16", right:"16", top:'prev() 12'}),
+                new TextView({ text: "Lizenzserver", top:'auto' }),
+                new TextInput({ text: this.getLicenseServer(), left:"16", right:"16", top:'auto'}),
             )
         );
         this.find(TextInput).first().onTextChanged.addListener(() => this.licenseServerChanged());
