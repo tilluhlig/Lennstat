@@ -8,7 +8,7 @@
     Till Uhlig
   </author>
   <preference name="EnableDeveloperConsole" value="$IS_DEBUG" />
-  <icon src="res/ios/Icon-App-40x40@2x.png" />
+  <icon src="res/ios/Icon-App-60x60@3x.png" />
   <platform name="ios">
       <preference name="WKWebViewOnly" value="true" />
   
@@ -31,5 +31,7 @@
       <icon src="res/ios/Icon-App-29x29@1x.png" width="29" height="29" />
       <icon src="res/ios/Icon-App-20x20@3x.png" width="60" height="60" />
       <icon src="res/ios/Icon-App-20x20@1x.png" width="20" height="20" />
+      <icon src="res/ios/playstore-icon.png" width="512" height="512" />
+      <icon src="res/ios/playstore-icon@2x.png" width="1024" height="1024" />
   </platform>
 </widget>
