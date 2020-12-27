@@ -1,3 +1,4 @@
+'use strict';
 import { Button, Canvas, CheckBox, Composite, Page, device, Tab, TextView, Stack, ActivityIndicator, contentView } from 'tabris';
 Promise = require("promise");
 require("whatwg-fetch");
@@ -17,6 +18,7 @@ export default class BasicPage extends Tab {
 
     showErrorView(text) {
         this.errorView = new TextView({
+            width: "250",
             centerY: true,
             centerX: true,
             text,
