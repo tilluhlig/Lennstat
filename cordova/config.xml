@@ -10,8 +10,8 @@
   <preference name="EnableDeveloperConsole" value="$IS_DEBUG" />
   <preference name="UseStrictSSL" value="false" />
    
-  <!--<splash src="res/screen/ios/default6.png"/>
-  <icon src="res/ios/Icon-App-40x40@2x.png"/>-->
+  <splash src="res/screen/ios/default6.png"/>
+  <icon src="res/ios/Icon-App-40x40@2x.png"/>
 
   <platform name="ios">
       <preference name="WKWebViewOnly" value="true" />
@@ -39,12 +39,12 @@
       <icon src="res/ios/playstore-icon@2x.png" width="1024" height="1024" />
       <splash src="res/screen/ios/default.png" width="640" height="960"/>
       <splash src="res/screen/ios/default2.png" width="768" height="1024"/>
-      <!--<splash src="res/screen/ios/default3.png" width="1536" height="2048"/>
+      <splash src="res/screen/ios/default3.png" width="1536" height="2048"/>
       <splash src="res/screen/ios/default4.png" width="1024" height="768"/>
       <splash src="res/screen/ios/default5.png" width="2048" height="1536"/>
       <splash src="res/screen/ios/default6.png" width="640" height="1136"/>
       <splash src="res/screen/ios/default7.png" width="750" height="1334"/>
       <splash src="res/screen/ios/default8.png" width="1242" height="2208"/>
-      <splash src="res/screen/ios/default9.png" width="2208" height="1242"/>-->
+      <splash src="res/screen/ios/default9.png" width="2208" height="1242"/>
   </platform>
 </widget>
