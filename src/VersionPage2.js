@@ -25,10 +25,10 @@ export default class VersionPage2 extends ChartPage {
             var key = sortedItemKeys[i];
             var elem = {
                 "value": parseInt(this.data[key]),
-                "color": colors[i%colors.length],
+                "color": colors[i % colors.length],
                 "highlight": "#FF5A5E",
                 "label": key
-              }
+            }
             this.items.push(elem);
         }
         this.drawChart(0);

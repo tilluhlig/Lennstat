@@ -19,11 +19,11 @@ export default class VersionPage extends BasicPage {
     _createUI() {
         this.append(
             new Stack({ spacing: 12, padding: 12, layoutData: "stretch" }).append(
-                new TextView({ text: this.desc, left:0, right:0}),
-                new TextView({ text: "", height:20}),
-                new TextView({ id:"elementAmount", text: "Anzahl: ???"}),
-                new TextView({ text: "", height:20}),
-                new ListView({ layoutData: "stretch", items: this.items, left:0, right:0 }).append(
+                new TextView({ text: this.desc, left: 0, right: 0 }),
+                new TextView({ text: "", height: 20 }),
+                new TextView({ id: "elementAmount", text: "Anzahl: ???" }),
+                new TextView({ text: "", height: 20 }),
+                new ListView({ layoutData: "stretch", items: this.items, left: 0, right: 0 }).append(
                     new Cell({ padding: 8, height: 52 }).append(
                         <TextView centerY bind-text='item' font='24px' />
                     )
@@ -43,12 +43,12 @@ export default class VersionPage extends BasicPage {
         this.updateData();
     }
 
-    _updateFinish(){
+    _updateFinish() {
         this.data = Object.keys(this.data)
         this.data = this.data.reverse();
 
         this.find(ListView).first().items = this.data;
-        this.find("#elementAmount").first().text = "Anzahl: "+this.data.length;
+        this.find("#elementAmount").first().text = "Anzahl: " + this.data.length;
         this._draw();
     }
 };

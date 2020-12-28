@@ -16,13 +16,12 @@ export default class SettingsPage extends BasicPage {
     }
 
     async readPrivacy() {
-        privacyData =  await fetch( __dirname + "/privacy.md");
+        privacyData = await fetch(__dirname + "/privacy.md");
         privacyData = await privacyData.text();
         this.find("#privacyElem").first().text = privacyData;
     }
 
     _createUI() {
-
         this.append(
             new Stack({ spacing: 12, padding: 12, layoutData: "stretch" }).append(
                 new TextView({ text: "Lizenzserver (https):", top: 'auto' }),
@@ -30,7 +29,7 @@ export default class SettingsPage extends BasicPage {
                 new TextView({ text: "Lizenzschlüssel:", top: 'auto' }),
                 new TextInput({ text: this.getLicenseKey(), left: "16", right: "16", top: 'auto' }),
                 new TextView({ text: "", top: 'auto', height: 50 }),
-                new TextView({ id:"privacyElem", left:0, right:0, text: privacyData, top: 'auto', markupEnabled: true }),
+                new TextView({ id: "privacyElem", left: 0, right: 0, text: privacyData, top: 'auto', markupEnabled: true }),
             )
         );
         this.find(TextInput)[0].onTextChanged.addListener(() => this.licenseServerChanged());

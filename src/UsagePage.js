@@ -35,7 +35,7 @@ export default class UsagePage extends ChartPage {
             "data": []
         };
 
-        var max=0;
+        var max = 0;
         for (var key in this.data) {
             this.items.labels.push("");
             let value = parseInt(this.data[key]);

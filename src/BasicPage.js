@@ -74,7 +74,7 @@ export default class BasicPage extends Tab {
 
     getSortedKeys(obj) {
         var keys = Object.keys(obj);
-        return keys.sort(function(a,b){return obj[b]-obj[a]});
+        return keys.sort(function (a, b) { return obj[b] - obj[a] });
     }
 
     async updateData() {
@@ -89,10 +89,10 @@ export default class BasicPage extends Tab {
         this.data = null;
 
         // Run async remote request with fetch
-        let fullUrl = this.getLicenseServer() + "/" + this.url+"&key="+this.getLicenseKey();
-        const response = await window.fetch(fullUrl).catch(function(ex) {
-             return ex;
-          });
+        let fullUrl = this.getLicenseServer() + "/" + this.url + "&key=" + this.getLicenseKey();
+        const response = await window.fetch(fullUrl).catch(function (ex) {
+            return ex;
+        });
         //console.log(response);
 
         if (response == undefined || !response.ok) {
@@ -105,7 +105,7 @@ export default class BasicPage extends Tab {
         } else {
             this.hideProgressIndicator();
             this.data = await response.json();
-            this.data=this.data.content;
+            this.data = this.data.content;
             if (this.updateDataCallback !== null) {
                 this.updateDataCallback();
             }
