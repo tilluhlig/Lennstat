@@ -25,7 +25,7 @@ export default class UsagePage extends ChartPage {
         this.items.labels = [];
 
         var res = {
-            "label": "Usage-Data",
+            "label": "",
             "fillColor": "rgba(151,187,205,0.2)",
             "strokeColor": "rgba(151,187,205,1)",
             "pointColor": "rgba(151,187,205,1)",
