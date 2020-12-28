@@ -1,6 +1,8 @@
-import { Button, Tab, TextView, Stack, ActivityIndicator, contentView, TextInput, Composite } from 'tabris';
+import { Button, Tab, TextView, Stack, ActivityIndicator, contentView, TextInput, Composite, fs } from 'tabris';
 import { ListView, Cell, List } from 'tabris-decorators';
 import BasicPage from './BasicPage';
+var privacyData = "";
+
 
 export default class SettingsPage extends BasicPage {
 
@@ -13,6 +15,12 @@ export default class SettingsPage extends BasicPage {
         this.masterElem = null;
     }
 
+    async readPrivacy() {
+        privacyData =  await fetch( __dirname + "/privacy.md");
+        privacyData = await privacyData.text();
+        this.find("#privacyElem").first().text = privacyData;
+    }
+
     _createUI() {
 
         this.append(
@@ -22,11 +30,12 @@ export default class SettingsPage extends BasicPage {
                 new TextView({ text: "Lizenzschlüssel:", top: 'auto' }),
                 new TextInput({ text: this.getLicenseKey(), left: "16", right: "16", top: 'auto' }),
                 new TextView({ text: "", top: 'auto', height: 50 }),
-                new TextView({ left:0, right:0, text: "Hinweis:<br/>Die Anwendung erfasst und speichert keine personenbezogenen Daten. Sie dient lediglich der Visualisierung von Statistiken.", top: 'auto', markupEnabled: true }),
+                new TextView({ id:"privacyElem", left:0, right:0, text: privacyData, top: 'auto', markupEnabled: true }),
             )
         );
         this.find(TextInput)[0].onTextChanged.addListener(() => this.licenseServerChanged());
         this.find(TextInput)[1].onTextChanged.addListener(() => this.licenseKeyChanged());
+        this.readPrivacy();
     }
 
     licenseServerChanged() {
