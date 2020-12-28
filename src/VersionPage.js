@@ -44,8 +44,15 @@ export default class VersionPage extends BasicPage {
     }
 
     _updateFinish() {
-        this.data = Object.keys(this.data)
-        this.data = this.data.reverse();
+        var sortedItemKeys = this.getSortedKeys(this.data);
+        let max = this.sumElements(Object.values(this.data));
+
+        var res = [];
+        for (var i in sortedItemKeys) {
+            var key = sortedItemKeys[i];
+            res.push(key+" ("+Math.round(this.data[key]/max*100)+"%)");
+        }
+        this.data=res;
 
         this.find(ListView).first().items = this.data;
         this.find("#elementAmount").first().text = "Anzahl: " + this.data.length;
