@@ -18,18 +18,7 @@ export default class UsagePage extends ChartPage {
     _updateFinish() {
         this.items = {
             "labels": [],
-            "datasets": [
-                {
-                    "label": "data",
-                    "fillColor": "rgba(151,187,205,0.2)",
-                    "strokeColor": "rgba(151,187,205,1)",
-                    "pointColor": "rgba(151,187,205,1)",
-                    "pointStrokeColor": "#fff",
-                    "pointHighlightFill": "#fff",
-                    "pointHighlightStroke": "rgba(151,187,205,1)",
-                    "data": []
-                }
-            ]
+            "datasets": []
         };
 
         var res = [];
@@ -46,11 +35,14 @@ export default class UsagePage extends ChartPage {
             "data": []
         };
 
+        var max=0;
         for (var key in this.data) {
             this.items.labels.push("");
-            res["data"].push(parseInt(this.data[key]));
+            let value = parseInt(this.data[key]);
+            res["data"].push(value);
+            max = Math.max(max, value);
         }
         this.items.datasets = [res];
-        this.drawChart();
+        this.drawChart(max);
     }
 };

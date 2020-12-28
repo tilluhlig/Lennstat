@@ -25,25 +25,31 @@ export default class ChartPage extends BasicPage {
 
     this.chartElem =
       new Stack({ spacing: 12, padding: 12, layoutData: "stretch" }).append(
-        new TextView({centerX: 'auto', text: this.desc }),
+        new TextView({text: this.desc, left:0, right:0 }),
         new Composite()
           .append(new Canvas())
           .on({ resize: (event) => this._layoutCanvas(event) }),
-        new Button({centerX: 'auto', id: 'drawChartButton', text: "Aktualisieren" })
+        new Button({centerX: 1, id: 'drawChartButton', text: "Aktualisieren" })
           .on('select', () => this._update())
       );
     this.append(this.chartElem);
   }
 
-  drawChart() {
+  drawChart(max) {
     let ctx = this._createCanvasContext();
     // workaround for scaling to native pixels by chart.js
+    let scale = Math.max(1,Math.round(max/10));
+
     ctx.scale(1 / window.devicePixelRatio, 1 / window.devicePixelRatio);
     new Chart(ctx)[this.type](this.items, {
       animation: false,
       showScale: true,
       showTooltips: false,
-      scaleShowLabels: true
+      scaleShowLabels: true,
+      scaleOverride:true,
+      scaleSteps:Math.ceil(max/scale),
+      scaleStepWidth:scale,
+      scaleStartValue:0
     });
   }
 

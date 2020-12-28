@@ -18,7 +18,8 @@ export default class BasicPage extends Tab {
 
     showErrorView(text) {
         this.errorView = new TextView({
-            width: 250,
+            left: 16,
+            right: 16,
             centerY: true,
             centerX: true,
             text,
@@ -71,6 +72,11 @@ export default class BasicPage extends Tab {
         localStorage.setItem(this.LICENSE, text);
     }
 
+    getSortedKeys(obj) {
+        var keys = Object.keys(obj);
+        return keys.sort(function(a,b){return obj[b]-obj[a]});
+    }
+
     async updateData() {
         // Create loading indicator
         this.showProgressIndicator();
@@ -91,7 +97,7 @@ export default class BasicPage extends Tab {
 
         if (response == undefined || !response.ok) {
             //console.error(response.statusText);
-            this.showErrorView("Fehler");
+            this.showErrorView("Die Daten konnten nicht abgerufen werden. Eventuell wurde der falsche Lizenzserver angegeben. Hierbei muss immer \"https\" verwendet werden.");
             if (this.masterElem !== null) {
                 this.masterElem.visible = false;
             }
