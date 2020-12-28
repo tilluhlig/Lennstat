@@ -77,6 +77,10 @@ export default class BasicPage extends Tab {
         return keys.sort(function (a, b) { return obj[b] - obj[a] });
     }
 
+    sumElements(array){
+        return array.reduce(function(pv, cv) { return pv + cv; }, 0);
+    }
+
     async updateData() {
         // Create loading indicator
         this.showProgressIndicator();
