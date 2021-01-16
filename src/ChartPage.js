@@ -33,22 +33,23 @@ export default class ChartPage extends BasicPage {
           .on('select', () => this._update())
       );
     this.append(this.chartElem);
+    
   }
 
   drawChart(max) {
     let ctx = this._createCanvasContext();
     // workaround for scaling to native pixels by chart.js
-    let scale = Math.max(1, Math.round(max / 10));
+    let axisScale = Math.max(1, Math.round(max / 10));
 
     ctx.scale(1 / window.devicePixelRatio, 1 / window.devicePixelRatio);
-    new Chart(ctx)[this.type](this.items, {
+    var chart = new Chart(ctx)[this.type](this.items, {
       animation: false,
       showScale: true,
       showTooltips: false,
       scaleShowLabels: true,
       scaleOverride: true,
-      scaleSteps: Math.ceil(max / scale),
-      scaleStepWidth: scale,
+      scaleSteps: Math.ceil(max / axisScale),
+      scaleStepWidth: axisScale,
       scaleStartValue: 0
     });
   }

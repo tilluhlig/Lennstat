@@ -27,7 +27,7 @@ export default class SettingsPage extends BasicPage {
                 new TextView({ text: "Lizenzserver (https):", top: 'auto' }),
                 new TextInput({ text: this.getLicenseServer(), left: "16", right: "16", top: 'auto' }),
                 new TextView({ text: "Lizenzschlüssel:", top: 'auto' }),
-                new TextInput({ text: this.getLicenseKey(), left: "16", right: "16", top: 'auto' }),
+                new TextInput({ text: this.getLicenseKey(), left: "16", right: "16", top: 'auto', type: 'multiline' }),
                 new TextView({ text: "", top: 'auto', height: 50 }),
                 new TextView({ id: "privacyElem", left: 0, right: 0, text: privacyData, top: 'auto', markupEnabled: true }),
             )

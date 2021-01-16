@@ -64,8 +64,14 @@ export default class BasicPage extends Tab {
     }
 
     getLicenseKey() {
-        let key = localStorage.getItem(this.LICENSE) || 'licenseHash';
+        let key = localStorage.getItem(this.LICENSE) || 'license';
         return key;
+    }
+
+    getRenderedLicenseKey() {
+        let key = localStorage.getItem(this.LICENSE) || 'license';
+        const elems = key.split('\n');
+        return elems.join(',');
     }
 
     setLicenseKey(text) {
@@ -93,7 +99,7 @@ export default class BasicPage extends Tab {
         this.data = null;
 
         // Run async remote request with fetch
-        let fullUrl = this.getLicenseServer() + "/" + this.url + "&key=" + this.getLicenseKey();
+        let fullUrl = this.getLicenseServer() + "/" + this.url + "&key=" + this.getRenderedLicenseKey();
         const response = await window.fetch(fullUrl).catch(function (ex) {
             return ex;
         });
