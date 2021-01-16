@@ -50,7 +50,10 @@ export default class VersionPage extends BasicPage {
         var res = [];
         for (var i in sortedItemKeys) {
             var key = sortedItemKeys[i];
-            res.push(key+" ("+Math.round(this.data[key]/max*100)+"%)");
+            var percentValue = Math.round(this.data[key]/max*100);
+            if (percentValue!=0){
+                res.push(key+" ("+percentValue+"%)");
+            }
         }
         this.data=res;
 
